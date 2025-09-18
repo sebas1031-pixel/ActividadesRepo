@@ -1,0 +1,53 @@
+Conceptos POO — Actividad 6 (Contexto: Registrar obras de arte)
+
+1) Método constructor:
+   - ObraDeArte(…): co.edu.poli.actividad3.model.ObraDeArte (constructor de la super-superclase)--- 24
+   - Pintura(…): co.edu.poli.actividad3.model.Pintura --- 7
+   - Escultura(…): co.edu.poli.actividad3.model.Escultura --- 7
+   - PinturaAlOleo(…): co.edu.poli.actividad4.servicios.PinturaAlOleo --- 10 SOBRECARGA 30
+
+2) Métodos de acceso (getters):
+   - ObraDeArte.getObra(), ObraDeArte.getSerial()--- 101-102
+
+3) Método to_string:
+   - ObraDeArte.toString()  retorna listar() --- 96
+
+4) Modificador static:
+   - ObraDeArte.getContadorObras()--- 105 y campo CONTADOR_OBRAS --- 22
+
+5) Modificador final:
+   - Atributo final: ObraDeArte.serial --- 12
+   - Método final: ObraDeArte.etiquetaMuseo()--- 90
+   - Clase final: co.edu.poli.actividad3.model.Certificacion --- 3
+
+6) Visibilidades:
+   - Atributos privados (private) en todas las clases de model
+   - Métodos públicos (public) para API de dominio
+
+7) Multiplicidades / Agregaciones:
+   - ObraDeArte tiene referencias a Localizacion 16, Categoria 8, Certificacion 12, Persona 11(agregación por composición débil)
+
+8) Sobreescritura de métodos (overriding):
+   - Pintura.listar()33, Escultura.listar()24, PinturaAlOleo.listar()30
+   - Pintura.calcularValorBase()20 sobreescribe el de ObraDeArte
+
+9) Sobrecarga de métodos (overloading):
+   - ObraDeArte.calcularValorPromedio()
+   - ObraDeArte.calcularValorPromedio(String)
+   - ObraDeArte.calcularValorPromedio(double)
+
+10) Creación de objetos:
+   - En Principal.main(): new Escultura(...), new Pintura(...), new PinturaAlOleo(...) 64-74
+
+11) Herencia:
+   - Pintura extends ObraDeArte --- 3
+   - Escultura extends ObraDeArte --- 2
+   - PinturaAlOleo extends Pintura --- 5
+
+12) Polimorfismo:
+   - Arreglo ObraDeArte[] con distintos tipos concretos 64-74
+   - Métodos polimórficos: imprimirBasico(ObraDeArte)9, buscarPorSerial(...) 15 retornan/reciben ObraDeArte 
+   - Llamadas polimórficas a listar() 70
+
+13) Enlace a repositorio GitHub:
+   - https://github.com/sebas1031-pixel/ReposiNumero1.git
