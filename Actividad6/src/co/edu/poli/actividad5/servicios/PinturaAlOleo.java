@@ -1,36 +1,26 @@
 package co.edu.poli.actividad5.servicios;
+import co.edu.poli.actividad3.model.Pintura;
 
-import co.edu.poli.actividad3.model.*;
+/**
+ * Subclase concreta de Pintura para la técnica al óleo.
+ */
+public class PinturaAlOleo extends Pintura {
 
-public class PinturaAlOleo extends Pintura{
-	 private boolean barnizada;
-	    private int tiempoSecado;     // días
-	    private String tipoLienzo;    // lino, algodón, etc.
+    private boolean barnizada;
+    private int tiempoSecadoDias;
 
-	    public PinturaAlOleo(Persona persona, String obra, double peso, int anioCreacion, Localizacion localizacion,
-	                         int serial, Categoria categoria, String tecnicaArtistica, String evaluacion,
-	                         Certificacion certificacion, int valoracionDeVisualizacion, int determinacionAnioCreacion,
-	                         String lienzo, String tecnicas,
-	                         boolean barnizada, int tiempoSecado, String tipoLienzo) {
-	        super(persona, obra, peso, anioCreacion, localizacion, serial,
-	              categoria, tecnicaArtistica, evaluacion,
-	              certificacion, valoracionDeVisualizacion, determinacionAnioCreacion,
-	              lienzo, tecnicas);
-	        this.barnizada = barnizada;
-	        this.tiempoSecado = Math.max(0, tiempoSecado);
-	        this.tipoLienzo = tipoLienzo;
-	    }
+    public PinturaAlOleo(int serial, String nombre, double peso, int anioCreacion,
+                         String lienzo, String tecnica,
+                         boolean barnizada, int tiempoSecadoDias) {
+        super(serial, nombre, peso, anioCreacion, lienzo, tecnica);
+        if (tiempoSecadoDias < 0) throw new IllegalArgumentException("tiempo secado negativo");
+        this.barnizada = barnizada;
+        this.tiempoSecadoDias = tiempoSecadoDias;
+    }
 
-	    public void aplicarBarniz() {
-	        this.barnizada = true;
-	        System.out.println("Barniz aplicado a la pintura al óleo.");
-	    }
-
-	    @Override
-	    public String listar() {
-	        return super.listar() + String.format(" — [Óleo: barnizada=%s, secado=%d días, tipoLienzo=%s]",
-	                barnizada ? "sí" : "no", tiempoSecado, tipoLienzo);
-	    }
-
-
+    @Override
+    public String listar() {
+        return String.format("[Óleo] %s — barnizada=%s, secado=%d días, id=%d",
+                getNombre(), barnizada ? "sí" : "no", tiempoSecadoDias, getSerial());
+    }
 }
