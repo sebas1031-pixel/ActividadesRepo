@@ -1,26 +1,16 @@
 package co.edu.poli.actividad3.model;
 
-/**
- * Representa un país asociado a una persona u obra de arte.
- * Contiene información básica como nombre, idioma y prefijo telefónico.
- */
+/** Representa un pais de origen de una persona o una obra. */
 public class Pais {
-
-    /** Nombre del país (ej: Colombia). */
     private String nombre;
-
-    /** Idioma principal del país (ej: Español). */
     private String idioma;
-
-    /** Prefijo telefónico internacional del país (ej: +57). */
     private String prefijo;
 
     /**
-     * Constructor de Pais.
-     *
-     * @param nombre  nombre del país
-     * @param idioma  idioma oficial
-     * @param prefijo prefijo telefónico internacional
+     * Crea un pais con nombre, idioma y prefijo telefonico.
+     * @param nombre nombre del pais
+     * @param idioma idioma principal
+     * @param prefijo prefijo telefonico
      */
     public Pais(String nombre, String idioma, String prefijo) {
         this.nombre = nombre;
@@ -28,31 +18,35 @@ public class Pais {
         this.prefijo = prefijo;
     }
 
-    /** @return nombre del país */
+    /** Devuelve el nombre del pais.
+     *  @return nombre del pais
+     */
     public String getNombre() { return nombre; }
 
-    /** @param nombre nuevo nombre del país */
+    /** Actualiza el nombre del pais.
+     *  @param nombre nuevo nombre del pais
+     */
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    /** @return idioma principal */
+    /** Devuelve el idioma principal.
+     *  @return idioma principal
+     */
     public String getIdioma() { return idioma; }
 
-    /** @param idioma nuevo idioma */
+    /** Actualiza el idioma.
+     *  @param idioma nuevo idioma
+     */
     public void setIdioma(String idioma) { this.idioma = idioma; }
 
-    /** @return prefijo telefónico */
+    /** Devuelve el prefijo telefonico.
+     *  @return prefijo telefonico
+     */
     public String getPrefijo() { return prefijo; }
 
-    /** @param prefijo nuevo prefijo telefónico */
+    /** Actualiza el prefijo telefonico.
+     *  @param prefijo nuevo prefijo telefonico
+     */
     public void setPrefijo(String prefijo) { this.prefijo = prefijo; }
 
-    /**
-     * Representación en cadena del país (solo muestra el nombre).
-     *
-     * @return nombre del país
-     */
-    @Override
-    public String toString() { return nombre; }
-
-
+    @Override public String toString() { return nombre; }
 }

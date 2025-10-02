@@ -1,37 +1,39 @@
 package co.edu.poli.actividad3.model;
 
-/**
-* Representa a una persona relacionada con la obra de arte
-* (puede ser autor, propietario, etc.).
-*/
+/** Representa a una persona (autor, artista, etc). */
 public class Persona {
+    private String nombre;
+    private String nacionalidad;
 
-   /** Nombre completo de la persona. */
-   private String nombre;
+    /**
+     * Crea una persona.
+     * @param nombre nombre completo
+     * @param nacionalidad nacionalidad de la persona
+     */
+    public Persona(String nombre, String nacionalidad) {
+        this.nombre = nombre;
+        this.nacionalidad = nacionalidad;
+    }
 
-   /** Nacionalidad de la persona. */
-   private String nacionalidad;
+    /** Devuelve el nombre completo de la persona.
+     *  @return nombre completo de la persona
+     */
+    public String getNombre() { return nombre; }
 
-   /**
-    * Constructor de Persona.
-    *
-    * @param nombre nombre completo
-    * @param nacionalidad nacionalidad
-    */
-   public Persona(String nombre, String nacionalidad) {
-       this.nombre = nombre;
-       this.nacionalidad = nacionalidad;
-   }
+    /** Cambia el nombre de la persona.
+     *  @param nombre nuevo nombre
+     */
+    public void setNombre(String nombre) { this.nombre = nombre; }
 
-   /** @return nombre completo de la persona */
-   public String getNombre() { return nombre; }
+    /** Devuelve la nacionalidad de la persona.
+     *  @return nacionalidad de la persona
+     */
+    public String getNacionalidad() { return nacionalidad; }
 
-   /** @param nombre nuevo nombre */
-   public void setNombre(String nombre) { this.nombre = nombre; }
+    /** Cambia la nacionalidad de la persona.
+     *  @param nacionalidad nueva nacionalidad
+     */
+    public void setNacionalidad(String nacionalidad) { this.nacionalidad = nacionalidad; }
 
-   /** @return nacionalidad de la persona */
-   public String getNacionalidad() { return nacionalidad; }
-
-   /** @param nacionalidad nueva nacionalidad */
-   public void setNacionalidad(String nacionalidad) { this.nacionalidad = nacionalidad; }
+    @Override public String toString() { return nombre + " - " + nacionalidad; }
 }

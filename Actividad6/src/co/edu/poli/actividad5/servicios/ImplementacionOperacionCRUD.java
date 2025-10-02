@@ -4,108 +4,87 @@ import java.util.Arrays;
 import co.edu.poli.actividad3.model.ObraDeArte;
 
 /**
- * Implementación del CRUD usando un ARREGLO subyacente que
- * se redimensiona automáticamente cuando no hay posiciones null.
- *
+ * Implementacion del CRUD usando un arreglo que puede crecer.
  * Reglas:
- * - create: inserta en el primer null (izq → der). Si no hay, crecer y reintentar.
- * - readId/update/delete: por ID (serial).
- * - Validaciones robustas en todas las operaciones.
+ * - create: inserta en el primer null; si no hay, el arreglo crece en 1.
+ * - readId/update/delete: operan por el serial.
  */
 public class ImplementacionOperacionCRUD implements OperacionCRUD {
 
-    /** Arreglo subyacente (puede contener nulls). */
+    /** Arreglo subyacente (puede contener posiciones null). */
     private ObraDeArte[] data;
 
-    /**
-     * Construye el arreglo con un tamaño inicial.
-     * @param tam tamaño inicial (mínimo 1)
-     */
-    public ImplementacionOperacionCRUD(int tam) {
-        if (tam < 1) throw new IllegalArgumentException("tamaño inicial < 1");
-        this.data = new ObraDeArte[tam];
+    /** Constructor: tamano inicial 3. */
+    public ImplementacionOperacionCRUD() {
+        this.data = new ObraDeArte[3];
     }
 
+    /** {@inheritDoc} */
     @Override
-    public synchronized String create(ObraDeArte o) {
-        if (o == null) return "ERROR: Obra null";
-        if (o.getSerial() <= 0) return "ERROR: serial inválido";
-        if (existsId(o.getSerial())) return "ERROR: ya existe obra con serial " + o.getSerial();
-
-        // buscar primer null
-        int pos = firstNullIndex();
-        if (pos == -1) {
-            // no hay null → crecer
-            grow();
-            pos = firstNullIndex(); // debe existir tras el grow
-            if (pos == -1) return "ERROR: no se pudo crecer la colección";
+    public String create(ObraDeArte o) {
+        if (o == null) return "ERROR: obra nula";
+        if (o.getSerial() <= 0) return "ERROR: serial invalido";
+        // Validar duplicado
+        for (ObraDeArte x : data) {
+            if (x != null && x.getSerial() == o.getSerial()) {
+                return "ERROR: ya existe obra con serial " + o.getSerial();
+            }
         }
-        data[pos] = o;
-        return "OK: agregada en posición " + pos;
+        // Primer null
+        for (int i = 0; i < data.length; i++) {
+            if (data[i] == null) {
+                data[i] = o;
+                return "OK: agregada en posicion " + i;
+            }
+        }
+        // Crecer + insertar al final
+        data = Arrays.copyOf(data, data.length + 1);
+        data[data.length - 1] = o;
+        return "OK: agregada en posicion " + (data.length - 1) + " (se amplio arreglo)";
     }
 
+    /** {@inheritDoc} */
     @Override
-    public synchronized ObraDeArte[] readAll() {
-        return data; // se permite ver nulls y tamaño actual
-    }
+    public ObraDeArte[] readAll() { return data; }
 
+    /** {@inheritDoc} */
     @Override
-    public synchronized ObraDeArte readId(int serial) {
+    public ObraDeArte readId(int serial) {
         if (serial <= 0) return null;
-        for (ObraDeArte obra : data) {
-            if (obra != null && obra.getSerial() == serial) return obra;
+        for (ObraDeArte x : data) {
+            if (x != null && x.getSerial() == serial) return x;
         }
         return null;
     }
 
+    /** {@inheritDoc} */
     @Override
-    public synchronized String update(int serial, ObraDeArte nueva) {
-        if (serial <= 0) return "ERROR: serial inválido";
-        if (nueva == null) return "ERROR: obra nueva null";
+    public String update(int serial, ObraDeArte nueva) {
+        if (serial <= 0) return "ERROR: serial invalido";
+        if (nueva == null) return "ERROR: obra nueva nula";
         if (nueva.getSerial() != serial) {
-            return "ERROR: el serial de la nueva obra (" + nueva.getSerial() + ") no coincide con " + serial;
+            return "ERROR: serial de nueva no coincide";
         }
         for (int i = 0; i < data.length; i++) {
             if (data[i] != null && data[i].getSerial() == serial) {
                 data[i] = nueva;
-                return "OK: actualizada en posición " + i;
+                return "OK: actualizada en posicion " + i;
             }
         }
         return "ERROR: no existe obra con serial " + serial;
     }
 
+    /** {@inheritDoc} */
     @Override
-    public synchronized ObraDeArte delete(int serial) {
+    public ObraDeArte delete(int serial) {
         if (serial <= 0) return null;
         for (int i = 0; i < data.length; i++) {
-            ObraDeArte o = data[i];
-            if (o != null && o.getSerial() == serial) {
+            ObraDeArte x = data[i];
+            if (x != null && x.getSerial() == serial) {
                 data[i] = null;
-                return o;
+                return x;
             }
         }
         return null;
     }
-
-    // ------------- utilidades internas -------------
-
-    /** @return true si existe una obra con ese ID. */
-    private boolean existsId(int serial) {
-        return readId(serial) != null;
-    }
-
-    /** @return índice del primer null, o -1 si no hay. */
-    private int firstNullIndex() {
-        for (int i = 0; i < data.length; i++) {
-            if (data[i] == null) return i;
-        }
-        return -1;
-    }
-
-    /** Crece el arreglo (x2) conservando el orden (nulls incluidos). */
-    private void grow() {
-        int newSize = Math.max(1, data.length * 2);
-        data = Arrays.copyOf(data, newSize);
-    }
-
 }

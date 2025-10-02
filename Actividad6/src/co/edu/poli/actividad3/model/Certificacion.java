@@ -1,38 +1,40 @@
 package co.edu.poli.actividad3.model;
 
 
-/**
- * Clase final que representa la certificación de autenticidad de la obra.
- * Al ser final, no puede ser heredada.
- */
+/** Clase final que representa la certificacion de autenticidad de la obra. */
 public final class Certificacion {
-
-    /** Nombre del organismo certificador. */
     private String entidad;
-
-    /** Año en el que se emitió la certificación. */
     private int anio;
 
     /**
-     * Constructor de Certificacion.
-     *
+     * Crea una certificacion.
      * @param entidad entidad certificadora
-     * @param anio año de emisión
+     * @param anio anio de emision
      */
     public Certificacion(String entidad, int anio) {
         this.entidad = entidad;
         this.anio = anio;
     }
 
-    /** @return entidad certificadora */
+    /** Devuelve la entidad certificadora.
+     *  @return entidad certificadora
+     */
     public String getEntidad() { return entidad; }
 
-    /** @param entidad nueva entidad certificadora */
+    /** Actualiza la entidad certificadora.
+     *  @param entidad nueva entidad certificadora
+     */
     public void setEntidad(String entidad) { this.entidad = entidad; }
 
-    /** @return año de emisión */
+    /** Devuelve el anio de emision.
+     *  @return anio de emision
+     */
     public int getAnio() { return anio; }
 
-    /** @param anio nuevo año */
+    /** Actualiza el anio de emision.
+     *  @param anio nuevo anio
+     */
     public void setAnio(int anio) { this.anio = anio; }
+
+    @Override public String toString() { return entidad + " (" + anio + ")"; }
 }

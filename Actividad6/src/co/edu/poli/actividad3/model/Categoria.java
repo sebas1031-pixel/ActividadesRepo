@@ -1,26 +1,23 @@
 package co.edu.poli.actividad3.model;
 
-/**
- * Representa una categoría de obra de arte (pintura, escultura, etc.).
- */
+/** Categoria de clasificacion de una obra. */
 public class Categoria {
-
-    /** Nombre de la categoría. */
     private String nombre;
 
-    /**
-     * Constructor de Categoria.
-     *
-     * @param nombre nombre de la categoría
+    /** Crea una categoria.
+     *  @param nombre nombre inicial
      */
-    public Categoria(String nombre) {
-        this.nombre = nombre;
-    }
+    public Categoria(String nombre) { this.nombre = nombre; }
 
-    /** @return nombre de la categoría */
+    /** Devuelve el nombre de la categoria.
+     *  @return nombre de la categoria
+     */
     public String getNombre() { return nombre; }
 
-    /** @param nombre nuevo nombre */
+    /** Actualiza el nombre de la categoria.
+     *  @param nombre nuevo nombre
+     */
     public void setNombre(String nombre) { this.nombre = nombre; }
 
+    @Override public String toString() { return nombre; }
 }

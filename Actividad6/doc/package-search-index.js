@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"Actividad6","l":"co.edu.poli.actividad3.model"},{"m":"Actividad6","l":"co.edu.poli.actividad5.servicios"},{"m":"Actividad6","l":"co.edu.poli.actividad5.vista"}];updateSearchResults();

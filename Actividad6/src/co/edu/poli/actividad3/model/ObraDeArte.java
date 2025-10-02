@@ -1,7 +1,8 @@
 package co.edu.poli.actividad3.model;
 
 /**
- * Superclase abstracta de todas las obras de arte.
+ * Super superclase para obras del museo.
+ * Contiene los campos comunes y contratos de comportamiento.
  */
 public abstract class ObraDeArte {
 
@@ -11,44 +12,65 @@ public abstract class ObraDeArte {
     private int anioCreacion;
 
     /**
-     * Constructor simplificado.
-     *
-     * @param serial ID único (>0)
-     * @param nombre título de la obra
-     * @param peso   peso en kg (>=0)
-     * @param anioCreacion año de creación
+     * Crea una obra de arte base.
+     * @param serial identificador unico
+     * @param nombre nombre de la obra
+     * @param peso peso en kilogramos
+     * @param anioCreacion anio de creacion
      */
     public ObraDeArte(int serial, String nombre, double peso, int anioCreacion) {
-        if (serial <= 0) throw new IllegalArgumentException("serial inválido");
-        if (peso < 0) throw new IllegalArgumentException("peso negativo");
         this.serial = serial;
         this.nombre = nombre;
         this.peso = peso;
         this.anioCreacion = anioCreacion;
     }
 
-    /** Método abstracto que cada subclase implementa. */
-    public abstract String listar();
-
-    // Getters básicos
+    /** Devuelve el serial unico de la obra.
+     *  @return identificador unico (serial) de la obra
+     */
     public int getSerial() { return serial; }
+
+    /** Devuelve el nombre de la obra.
+     *  @return nombre de la obra
+     */
     public String getNombre() { return nombre; }
+
+    /** Cambia el nombre de la obra.
+     *  @param nombre nuevo nombre
+     */
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    /** Devuelve el peso en kilogramos.
+     *  @return peso en kilogramos
+     */
     public double getPeso() { return peso; }
+
+    /** Cambia el peso de la obra.
+     *  @param peso nuevo peso en kg
+     */
+    public void setPeso(double peso) { this.peso = peso; }
+
+    /** Devuelve el anio de creacion.
+     *  @return anio de creacion
+     */
     public int getAnioCreacion() { return anioCreacion; }
 
-    // Setters
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public void setPeso(double peso) {
-        if (peso < 0) throw new IllegalArgumentException("peso negativo");
-        this.peso = peso;
-    }
+    /** Cambia el anio de creacion.
+     *  @param anioCreacion nuevo anio
+     */
     public void setAnioCreacion(int anioCreacion) { this.anioCreacion = anioCreacion; }
 
-    /** Método final que no se puede sobrescribir. */
+    /** Lista la informacion relevante de la obra.
+     *  @return cadena con la informacion resumida
+     */
+    public abstract String listar();
+
+    /** Genera una etiqueta simple para vitrina.
+     *  @return texto con nombre y anio
+     */
     public final String etiquetaMuseo() {
-        return "Obra serial=" + serial + " (" + nombre + ")";
+        return nombre + " (" + anioCreacion + ")";
     }
 
-    @Override
-    public String toString() { return listar(); }
+    @Override public String toString() { return listar(); }
 }
