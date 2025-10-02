@@ -1,76 +1,112 @@
 package co.edu.poli.actividad3.model;
 
+import java.io.Serializable;
+
 /**
- * Super superclase para obras del museo.
- * Contiene los campos comunes y contratos de comportamiento.
- */
-public abstract class ObraDeArte {
+* Clase abstracta que representa una obra de arte.
+* 
+* <p>Contiene los atributos basicos que comparten todas las obras de arte,
+* como serial, nombre, peso y anio de creacion.</p>
+* 
+* <p>Esta clase implementa la interfaz {@link Serializable} para permitir
+* guardar y recuperar las instancias desde archivos binarios.</p>
+* 
+* @author Sebastian
+*/
+public abstract class ObraDeArte implements Serializable {
 
-    private final int serial;
-    private String nombre;
-    private double peso;
-    private int anioCreacion;
+   private static final long serialVersionUID = 1L;
 
-    /**
-     * Crea una obra de arte base.
-     * @param serial identificador unico
-     * @param nombre nombre de la obra
-     * @param peso peso en kilogramos
-     * @param anioCreacion anio de creacion
-     */
-    public ObraDeArte(int serial, String nombre, double peso, int anioCreacion) {
-        this.serial = serial;
-        this.nombre = nombre;
-        this.peso = peso;
-        this.anioCreacion = anioCreacion;
-    }
+   /** Identificador unico de la obra */
+   private int serial;
 
-    /** Devuelve el serial unico de la obra.
-     *  @return identificador unico (serial) de la obra
-     */
-    public int getSerial() { return serial; }
+   /** Nombre de la obra */
+   private String nombre;
 
-    /** Devuelve el nombre de la obra.
-     *  @return nombre de la obra
-     */
-    public String getNombre() { return nombre; }
+   /** Peso en kilogramos */
+   private double peso;
 
-    /** Cambia el nombre de la obra.
-     *  @param nombre nuevo nombre
-     */
-    public void setNombre(String nombre) { this.nombre = nombre; }
+   /** Anio de creacion */
+   private int anioCreacion;
 
-    /** Devuelve el peso en kilogramos.
-     *  @return peso en kilogramos
-     */
-    public double getPeso() { return peso; }
+   /**
+    * Constructor para inicializar los campos basicos de una obra de arte.
+    * 
+    * @param serial identificador unico
+    * @param nombre nombre de la obra
+    * @param peso peso en kilogramos
+    * @param anioCreacion anio de creacion de la obra
+    */
+   public ObraDeArte(int serial, String nombre, double peso, int anioCreacion) {
+       this.serial = serial;
+       this.nombre = nombre;
+       this.peso = peso;
+       this.anioCreacion = anioCreacion;
+   }
 
-    /** Cambia el peso de la obra.
-     *  @param peso nuevo peso en kg
-     */
-    public void setPeso(double peso) { this.peso = peso; }
+   // ===================== Getters y Setters =====================
 
-    /** Devuelve el anio de creacion.
-     *  @return anio de creacion
-     */
-    public int getAnioCreacion() { return anioCreacion; }
+   /** @return identificador unico de la obra */
+   public int getSerial() {
+       return serial;
+   }
 
-    /** Cambia el anio de creacion.
-     *  @param anioCreacion nuevo anio
-     */
-    public void setAnioCreacion(int anioCreacion) { this.anioCreacion = anioCreacion; }
+   /** @param serial nuevo identificador unico */
+   public void setSerial(int serial) {
+       this.serial = serial;
+   }
 
-    /** Lista la informacion relevante de la obra.
-     *  @return cadena con la informacion resumida
-     */
-    public abstract String listar();
+   /** @return nombre de la obra */
+   public String getNombre() {
+       return nombre;
+   }
 
-    /** Genera una etiqueta simple para vitrina.
-     *  @return texto con nombre y anio
-     */
-    public final String etiquetaMuseo() {
-        return nombre + " (" + anioCreacion + ")";
-    }
+   /** @param nombre nuevo nombre de la obra */
+   public void setNombre(String nombre) {
+       this.nombre = nombre;
+   }
 
-    @Override public String toString() { return listar(); }
+   /** @return peso en kilogramos */
+   public double getPeso() {
+       return peso;
+   }
+
+   /** @param peso nuevo peso en kilogramos */
+   public void setPeso(double peso) {
+       this.peso = peso;
+   }
+
+   /** @return anio de creacion */
+   public int getAnioCreacion() {
+       return anioCreacion;
+   }
+
+   /** @param anioCreacion nuevo anio de creacion */
+   public void setAnioCreacion(int anioCreacion) {
+       this.anioCreacion = anioCreacion;
+   }
+
+   // ===================== Abstract =====================
+
+   /**
+    * Metodo abstracto que debe ser implementado por cada subclase
+    * para listar la informacion especifica de la obra de arte.
+    * 
+    * @return cadena con la informacion de la obra
+    */
+   public abstract String listar();
+
+   // ===================== toString =====================
+
+   /**
+    * Representacion en cadena de la obra de arte.
+    * Incluye los atributos basicos.
+    * 
+    * @return cadena con la informacion de la obra
+    */
+   @Override
+   public String toString() {
+       return String.format("ObraDeArte [serial=%d, nombre=%s, peso=%.2f, anio=%d]",
+               serial, nombre, peso, anioCreacion);
+   }
 }
